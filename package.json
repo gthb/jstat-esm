@@ -36,8 +36,7 @@
     "test": "vows --spec --isolate",
     "build": "yarn build:transpile && yarn build:webpack",
     "build:transpile": "babel src -d lib",
-    "build:webpack": "webpack",
-    "postinstall": "npm run build"
+    "build:webpack": "webpack"
   },
   "sideEffects": [
     "./src/core/jStat.js"
