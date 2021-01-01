@@ -1,4 +1,4 @@
-import { isFunction } from "../core/helpers";
+import { cumreduce } from '../core';
 
 // Ascending functions for sort
 function ascNum(a, b) {
@@ -286,7 +286,7 @@ export function quartiles(arr) {
     _arr[Math.round((arrlen) / 2) - 1],
     _arr[Math.round((arrlen) * 3 / 4) - 1]
   ];
-};
+}
 
 
 // Arbitary quantiles of an array. Direct port of the scipy.stats
@@ -312,7 +312,7 @@ export function quantiles(arr, quantilesArray, alphap, betap) {
   }
 
   return quantileVals;
-};
+}
 
 // Return the k-th percentile of values in a range, where k is in the range 0..1, inclusive.
 // Passing true for the exclusive parameter excludes both endpoints of the range.

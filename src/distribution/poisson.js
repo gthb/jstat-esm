@@ -70,7 +70,7 @@ function sampleLarge(l) {
 
 export function sample(l) {
   if (l < 10)
-    return this.sampleSmall(l);
+    return sampleSmall(l);
   else
-    return this.sampleLarge(l);
+    return sampleLarge(l);
 }

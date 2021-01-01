@@ -5,9 +5,9 @@ var suite = vows.describe('jStat.commonjs');
 suite.addBatch({
   'jStat': {
     'topic': function() {
-      return require('./../../dist/jstat.js');
+      return require('./../../dist/jstat.min.js');
     },
-    'should be defined': function(jStat) {
+    'should be defined': function({default: jStat}) {
       assert.equal(typeof jStat, 'function');
 
       // Check some random functions

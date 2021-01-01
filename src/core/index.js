@@ -213,7 +213,7 @@ export function ones(rows, cols) {
 export function rand(rows, cols) {
   if (!isNumber(cols))
     cols = rows;
-  return create(rows, cols, jStat._random_fn);
+  return create(rows, cols, random_fn);
 }
 
 // Generate an identity matrix of size row x cols.

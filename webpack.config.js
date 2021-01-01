@@ -7,6 +7,9 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "./dist/"),
         filename: "jstat.min.js",
+        library: "jStat",
+        libraryTarget: "umd",
+        globalObject: 'this'
     },
     plugins: [
         // new BundleAnalyzerPlugin(),
