@@ -8,6 +8,14 @@ export const utils = {
   toVector: toVector
 };
 
+export let random_fn = Math.random;
+
+export function setRandom(fn) {
+  if (typeof fn !== 'function')
+    throw new TypeError('fn is not a function');
+  random_fn = fn;
+}
+
 // Returns the number of rows in the matrix.
 export function rows(arr) {
   return arr.length || 1;

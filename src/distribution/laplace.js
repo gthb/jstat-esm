@@ -1,4 +1,4 @@
-import {jStat} from "../core/jStat";
+import { random_fn } from "../core";
 
 function laplaceSign(x) {
   return x / Math.abs(x);
@@ -9,12 +9,14 @@ export function pdf(x, mu, b) {
 }
 
 export function cdf(x, mu, b) {
-  if (b <= 0) { return 0; }
+  if (b <= 0) {
+    return 0;
+  }
 
-  if(x < mu) {
+  if (x < mu) {
     return 0.5 * Math.exp((x - mu) / b);
   } else {
-    return 1 - 0.5 * Math.exp(- (x - mu) / b);
+    return 1 - 0.5 * Math.exp(-(x - mu) / b);
   }
 }
 
@@ -35,7 +37,7 @@ export function variance(mu, b) {
 }
 
 export function sample(mu, b) {
-  var u = jStat._random_fn() - 0.5;
+  var u = random_fn() - 0.5;
 
   return mu - (b * laplaceSign(u) * Math.log(1 - (2 * Math.abs(u))));
 }

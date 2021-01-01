@@ -1,5 +1,5 @@
 import { gammafn } from "./special";
-import { jStat } from "../core/jStat";
+import { random_fn } from "../core";
 
 export function pdf(x, scale, shape) {
   if (x < 0 || scale < 0 || shape < 0)
@@ -31,7 +31,7 @@ export function mode(scale, shape) {
 }
 
 export function sample(scale, shape) {
-  return scale * Math.pow(-Math.log(jStat._random_fn()), 1 / shape);
+  return scale * Math.pow(-Math.log(random_fn()), 1 / shape);
 }
 
 export function variance(scale, shape) {

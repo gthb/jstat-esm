@@ -1,4 +1,4 @@
-import { jStat } from "../core/jStat";
+import { random_fn } from "../core";
 
 export function pdf(x, a, b, c) {
   if (b <= a || c < a || c > b) {
@@ -58,7 +58,7 @@ export function mode(a, b, c) {
 }
 
 export function sample(a, b, c) {
-  var u = jStat._random_fn();
+  var u = random_fn();
   if (u < ((c - a) / (b - a)))
     return a + Math.sqrt(u * (b - a) * (c - a))
   return b - Math.sqrt((1 - u) * (b - a) * (b - c));

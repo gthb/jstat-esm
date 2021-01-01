@@ -1,7 +1,15 @@
 import { isArray, isFunction, isNumber } from "./helpers";
-import { alter, cumreduce, map, seq, slice } from "./index";
+import {
+  alter, cumreduce, map, seq, transpose, clear, symmetric,
+  row, col, rows, cols, dimensions, diag, antidiag,
+  create, zeros, ones, rand, identity, setRandom
+} from "./index";
 
 function jStat(...args) {
+  return new jStat._init(...args);
+}
+
+jStat._init = function (...args) {
   // If first argument is an array, must be vector or matrix.
   if (isArray(args[0])) {
     // Check if matrix.
@@ -40,12 +48,10 @@ function jStat(...args) {
   return this;
 }
 
-jStat._random_fn = Math.random;
-jStat.setRandom = function setRandom(fn) {
-  if (typeof fn !== 'function')
-    throw new TypeError('fn is not a function');
-  jStat._random_fn = fn;
-};
+jStat._init.prototype = jStat.prototype;
+jStat._init.constructor = jStat;
+
+jStat.setRandom = setRandom;
 
 // Quick reference.
 const jProto = jStat.prototype;
@@ -63,7 +69,7 @@ jProto.slice = Array.prototype.slice;
 
 // Return a clean array.
 jProto.toArray = function toArray() {
-  return this.length > 1 ? slice.call(this) : slice.call(this)[0];
+  return this.length > 1 ? this.slice() : this.slice()[0];
 };
 
 // Map a function to a matrix or vector.
@@ -81,5 +87,35 @@ jProto.alter = function (func) {
   alter(this, func);
   return this;
 };
+
+// Extend prototype with methods that have no argument.
+[transpose, clear, symmetric, rows, cols, dimensions, diag, antidiag].forEach(fn => {
+  jProto[fn.name] = function (cb) {
+    if (cb) {
+      cb.call(this, jProto[fn.name].call(this));
+      return this;
+    }
+    const result = fn(this);
+    return Array.isArray(result) ? jStat(result) : result;
+  }
+});
+
+// Extend prototype with methods that have one argument.
+[row, col].forEach(fn => {
+  jProto[fn.name] = function (arg1, cb) {
+    if (cb) {
+      cb.call(this, jProto[fn.name].call(this, arg1));
+      return this;
+    }
+    return jStat(fn(this, arg1));
+  }
+});
+
+// Extend prototype with simple shortcut methods.
+[create, zeros, ones, rand, identity].forEach(fn => {
+  jProto[fn.name] = function (...args) {
+    return jStat(fn(...args));
+  }
+});
 
 export { jStat };

@@ -1,4 +1,4 @@
-import { jStat } from "../core/jStat";
+import { random_fn } from "../core";
 import {mean as VectorMean} from '../vector';
 
 export function pdf(x, a, b) {
@@ -30,7 +30,7 @@ export function mode(/*a, b*/) {
 }
 
 export function sample(a, b) {
-  return (a / 2 + b / 2) + (b / 2 - a / 2) * (2 * jStat._random_fn() - 1);
+  return (a / 2 + b / 2) + (b / 2 - a / 2) * (2 * random_fn() - 1);
 }
 
 export function variance(a, b) {

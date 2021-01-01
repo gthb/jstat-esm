@@ -1,4 +1,4 @@
-import { jStat } from '../core/jStat';
+import { random_fn } from '../core';
 
 export function pdf(x, rate) {
   return x < 0 ? 0 : rate * Math.exp(-rate * x);
@@ -25,7 +25,7 @@ export function mode(/*rate*/) {
 }
 
 export function sample(rate) {
-  return -1 / rate * Math.log(jStat._random_fn());
+  return -1 / rate * Math.log(random_fn());
 }
 
 export function variance(rate) {

@@ -1,5 +1,5 @@
 import { zeros, create } from "../core";
-import { jStat } from '../core/jStat';
+import { random_fn } from '../core';
 
 
 // Log-gamma function
@@ -202,7 +202,7 @@ export function betafn(x, y) {
 
 // natural logarithm of beta function
 export function betaln(x, y) {
-  return jStat.gammaln(x) + jStat.gammaln(y) - jStat.gammaln(x + y);
+  return gammaln(x) + gammaln(y) - gammaln(x + y);
 }
 
 
@@ -447,8 +447,8 @@ export function randn(n, m) {
       return randn();
     });
   do {
-    u = jStat._random_fn();
-    v = 1.7156 * (jStat._random_fn() - 0.5);
+    u = random_fn();
+    v = 1.7156 * (random_fn() - 0.5);
     x = u - 0.449871;
     y = Math.abs(v) + 0.386595;
     q = x * x + y * (0.19600 * y - 0.25472 * x);
@@ -482,7 +482,7 @@ export function randg(shape, n, m) {
       v = 1 + a2 * x;
     } while (v <= 0);
     v = v * v * v;
-    u = jStat._random_fn();
+    u = random_fn();
   } while (u > 1 - 0.331 * Math.pow(x, 4) &&
   Math.log(u) > 0.5 * x * x + a1 * (1 - v + Math.log(v)));
   // alpha > 1
@@ -490,7 +490,7 @@ export function randg(shape, n, m) {
     return a1 * v;
   // alpha < 1
   do {
-    u = jStat._random_fn();
+    u = random_fn();
   } while (u === 0);
   return Math.pow(u, 1 / oalph) * a1 * v;
 }
