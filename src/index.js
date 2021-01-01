@@ -1,6 +1,7 @@
 export * from './core';
 export * from './distribution';
 export * from './vector';
+export * from './test';
 import { jStat } from "./core/jStat";
 
 import * as coreFunctions from './core';
