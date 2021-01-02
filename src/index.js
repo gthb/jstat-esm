@@ -1,16 +1,23 @@
 export * from './core';
 export * from './distribution';
+export * from './distribution/special';
 export * from './vector';
 export * from './test';
+export * from './linearAlgebra';
+export * from './models';
 import { jStat } from "./core/jStat";
 
 import * as coreFunctions from './core';
 import * as pureDistributionFunctions from './distribution';
+import * as specialFunctions from './distribution/special';
 import * as vectorFunctions from './vector';
 import * as testFunctions from './test';
+import * as linearAlgebraFunctions from './linearAlgebra';
+import * as modelsFunctions from './models';
 
 // Assign static methods
-Object.assign(jStat, coreFunctions, vectorFunctions, testFunctions);
+Object.assign(jStat, coreFunctions, vectorFunctions, testFunctions,
+  linearAlgebraFunctions, modelsFunctions, specialFunctions);
 
 // Generate distribution static methods, i.e. `jStat.gamma(1, 2)`
 for (const [distributionName, distributionFn] of Object.entries(pureDistributionFunctions)) {
@@ -59,6 +66,21 @@ for (const [distributionName, distributionFn] of Object.entries(pureDistribution
     }
   })
 }
+
+// Distribution Special functions
+// making use of static methods on the instance
+'gammaln gammafn factorial factorialln'.split(' ').forEach(function (passfunc) {
+  jStat.prototype[passfunc] = function () {
+    return jStat(
+      jStat.map(this, function (value) {
+        return jStat[passfunc](value);
+      }));
+  }
+});
+
+jStat.prototype.randn = function () {
+  return jStat(jStat.randn.apply(null, arguments));
+};
 
 
 // Vector functions
@@ -222,6 +244,35 @@ jStat.prototype.anovaftes = function anovaftes() {
   }
   return jStat.ftest(this.anovafscore(), this.length - 1, n - this.length);
 };
+
+/**
+ * @deprecated
+ */
+jStat.prototype.oneSidedDifferenceOfProportions = function () {
+  console.error('Please use jStat.oneSidedDifferenceOfProportions() instead');
+};
+/**
+ * @deprecated
+ */
+jStat.prototype.twoSidedDifferenceOfProportions = function () {
+  console.error('Please use jStat.twoSidedDifferenceOfProportions() instead');
+};
+
+// Linear algebra
+'add divide multiply subtract dot pow exp log abs norm angle'.split(' ').forEach(funcName => {
+  jStat.prototype[funcName] = function (arg, func) {
+    const tmpthis = this;
+    // check for callback
+    if (func) {
+      func.call(tmpthis, jStat.prototype[funcName].call(tmpthis, arg));
+      return this;
+    }
+    if (typeof jStat[funcName](this, arg) === 'number')
+      return jStat[funcName](this, arg);
+    else
+      return jStat(jStat[funcName](this, arg));
+  };
+});
 
 jStat.jStat = jStat;
 export { jStat };

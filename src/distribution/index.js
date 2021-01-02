@@ -21,4 +21,4 @@ export * as triangular from './triangular';
 export * as tukey from './tukey';
 export * as uniform from './uniform';
 export * as weibull from './weibull';
-export * from './special';
+// export * from './special';
