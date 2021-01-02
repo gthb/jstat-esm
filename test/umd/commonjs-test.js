@@ -18,7 +18,7 @@ suite.addBatch({
       assert.equal(typeof jStat.add, 'function');
       assert.equal(typeof jStat.zscore, 'function');
     },
-    'should export jStat object under the "jStat" property for compatibility reasons': function(jStat) {
+    'should export jStat object under the "jStat" property for compatibility reasons': function({default: jStat}) {
       assert.equal(jStat.jStat, jStat);
     },
   }
