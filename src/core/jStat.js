@@ -1,8 +1,6 @@
 import { isArray, isFunction, isNumber } from "./helpers";
 import {
-  alter, cumreduce, map, seq, transpose, clear, symmetric,
-  row, col, rows, cols, dimensions, diag, antidiag,
-  create, zeros, ones, rand, identity, setRandom
+  alter, cumreduce, map, seq, setRandom
 } from "./index";
 
 function jStat(...args) {
@@ -89,32 +87,32 @@ jProto.alter = function (func) {
 };
 
 // Extend prototype with methods that have no argument.
-[transpose, clear, symmetric, rows, cols, dimensions, diag, antidiag].forEach(fn => {
-  jProto[fn.name] = function (cb) {
+'transpose clear symmetric rows cols dimensions diag antidiag'.split(' ').forEach(fnName => {
+  jProto[fnName] = function (cb) {
     if (cb) {
-      cb.call(this, jProto[fn.name].call(this));
+      cb.call(this, jProto[fnName].call(this));
       return this;
     }
-    const result = fn(this);
+    const result = jStat[fnName](this);
     return Array.isArray(result) ? jStat(result) : result;
   }
 });
 
 // Extend prototype with methods that have one argument.
-[row, col].forEach(fn => {
-  jProto[fn.name] = function (arg1, cb) {
+'row col'.split(' ').forEach(fnName => {
+  jProto[fnName] = function (arg1, cb) {
     if (cb) {
-      cb.call(this, jProto[fn.name].call(this, arg1));
+      cb.call(this, jProto[fnName].call(this, arg1));
       return this;
     }
-    return jStat(fn(this, arg1));
+    return jStat(jStat[fnName](this, arg1));
   }
 });
 
 // Extend prototype with simple shortcut methods.
-[create, zeros, ones, rand, identity].forEach(fn => {
-  jProto[fn.name] = function (...args) {
-    return jStat(fn(...args));
+'create zeros ones rand identity'.split(' ').forEach(fnName => {
+  jProto[fnName] = function (...args) {
+    return jStat(jStat[fnName](...args));
   }
 });
 
