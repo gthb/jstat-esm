@@ -47,5 +47,11 @@
   },
   "sideEffects": [
     "./src/core/jStat.js"
+  ],
+  "files": [
+    "lib",
+    "src",
+    "dist",
+    "README.md"
   ]
 }
