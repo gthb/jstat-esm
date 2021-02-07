@@ -10,6 +10,13 @@
     "email": "trev.norris@gmail.com",
     "url": "http://trevorjnorris.com"
   },
+  "contributors": [
+    {
+      "name": "Dishu Lyu",
+      "email": "lvds2000@gmail.com",
+      "url": "https://lesterlyu.github.io"
+    }
+  ],
   "licenses": [
     {
       "type": "MIT",
