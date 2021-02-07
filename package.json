@@ -1,6 +1,6 @@
 {
   "name": "jstat-esm",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Statistical Library for JavaScript",
   "homepage": "http://github.com/jstat/jstat",
   "main": "lib/index.js",
