@@ -1,5 +1,5 @@
 const path = require("path");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const webpack = require('webpack');
 
 module.exports = {
     mode: "production",
@@ -9,10 +9,13 @@ module.exports = {
         filename: "jstat.min.js",
         library: "jStat",
         libraryTarget: "umd",
-        globalObject: 'this'
+        globalObject: 'this',
+        libraryExport: "default",
     },
     plugins: [
-        // new BundleAnalyzerPlugin(),
+        new webpack.SourceMapDevToolPlugin({
+            filename: 'jstat.min.js.map'
+        }),
     ],
     optimization: {
         usedExports: false,
