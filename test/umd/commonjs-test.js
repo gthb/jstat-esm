@@ -7,7 +7,7 @@ suite.addBatch({
     'topic': function() {
       return require('./../../dist/jstat.min.js');
     },
-    'should be defined': function({default: jStat}) {
+    'should be defined': function(jStat) {
       assert.equal(typeof jStat, 'function');
 
       // Check some random functions
@@ -18,7 +18,7 @@ suite.addBatch({
       assert.equal(typeof jStat.add, 'function');
       assert.equal(typeof jStat.zscore, 'function');
     },
-    'should export jStat object under the "jStat" property for compatibility reasons': function({default: jStat}) {
+    'should export jStat object under the "jStat" property for compatibility reasons': function(jStat) {
       assert.equal(jStat.jStat, jStat);
     },
   }
