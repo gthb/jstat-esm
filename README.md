@@ -52,3 +52,5 @@ jStat().ones(2);
 
 ### Internal changes compared to the original [jStat](https://github.com/jstat/jstat)
 - `jStat.extend` is removed.
+- Reworked tests.
+- Reworked build process.
