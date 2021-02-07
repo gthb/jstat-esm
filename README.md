@@ -54,3 +54,4 @@ jStat().ones(2);
 - `jStat.extend` is removed.
 - Reworked tests.
 - Reworked build process.
+- Documentation breaks now. Rethinking a new way to document.
